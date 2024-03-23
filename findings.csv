@@ -1,0 +1,3 @@
+project,line,effort,debt,tags,type,scope,cleanCodeAttribute,cleanCodeAttributeCategory,Software_Quality_Impact,Impact_Severity
+TaskClassEval0k0,9,5min,5min,suspicious,CODE_SMELL,MAIN,COMPLETE,INTENTIONAL,MAINTAINABILITY,HIGH
+TaskClassEval0k0,24,5min,5min,unused,CODE_SMELL,MAIN,CLEAR,INTENTIONAL,MAINTAINABILITY,MEDIUM
