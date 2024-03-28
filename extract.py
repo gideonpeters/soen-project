@@ -66,7 +66,7 @@ def process_issues(issues):
         "cleanCodeAttribute": give_direct_value(i, "cleanCodeAttribute"),
         "cleanCodeAttributeCategory": give_direct_value(i, "cleanCodeAttributeCategory"),
         "Software_Quality_Impact": give_embedded_value(i, "impacts", 0, "softwareQuality"),
-        "Impact_Severity": give_embedded_value(i, "impacts", 0, "severity")}
+        "Impact_Severity": give_embedded_value(i, "impacts", 0, "severity"), "message": give_direct_value(i, "message")}
         df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
 
 def export_scan_report(foldername, sonarqube_url, sonarqube_token):
