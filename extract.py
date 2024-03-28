@@ -44,22 +44,36 @@ def generate_scan_reports():
         shutil.copyfile(src, dst)
         scan_project(folder_name, sonarqube_url, sonarqube_token)
 
+def give_direct_value(json_var, elem):
+    try:
+        return json_var[elem]
+    except:
+        return ""
+
+def give_embedded_value(json_var, elem1, rank, elem2):
+    try:
+        return json_var[elem1][rank][elem2]
+    except:
+        return ""
+
 def process_issues(issues):
     global df
     for i in issues:
-        new_row = {"project": i["project"],
-        "line": i["line"], "effort": i["effort"],
-        "debt": i["debt"], "tags": "".join(i["tags"]),
-        "type": i["type"], "scope": i["scope"],
-        "cleanCodeAttribute": i["cleanCodeAttribute"],
-        "cleanCodeAttributeCategory": i["cleanCodeAttributeCategory"],
-        "Software_Quality_Impact": i["impacts"][0]["softwareQuality"],
-        "Impact_Severity": i["impacts"][0]["severity"]}
+        new_row = {"project": give_direct_value(i, "project"), "rule": give_direct_value(i, "rule"),
+        "severity": give_direct_value(i, "severity") ,"line": give_direct_value(i, "line"), "effort": give_direct_value(i, "effort"),
+        "debt": give_direct_value(i, "debt"), "tags": "".join(give_direct_value(i, "tags")),
+        "type": give_direct_value(i, "type"), "scope": give_direct_value(i, "scope"),
+        "cleanCodeAttribute": give_direct_value(i, "cleanCodeAttribute"),
+        "cleanCodeAttributeCategory": give_direct_value(i, "cleanCodeAttributeCategory"),
+        "Software_Quality_Impact": give_embedded_value(i, "impacts", 0, "softwareQuality"),
+        "Impact_Severity": give_embedded_value(i, "impacts", 0, "severity")}
         df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
 
 def export_scan_report(foldername, sonarqube_url, sonarqube_token):
     #r = requests.get(sonarqube_url + '/api/projects/search', headers={'Authorization': f'Bearer {sonarqube_token}', 'Content-Type': 'application/json'}, data={"project": foldername})
     issues = sonar.issues.search_issues(componentKeys=foldername)["issues"]
+    print("++++++++++++++")
+    print(issues)
     if (len(issues) > 0):
         process_issues(issues)
     df.to_csv('findings.csv', index=False)
@@ -71,6 +85,6 @@ def export_scan_reports():
         if os.path.isdir(os.path.join(directory_path, folder_name)):
             export_scan_report(folder_name, sonarqube_url, sonarqube_token)
 
-generate_scan_reports()
-time.sleep(120)
+#generate_scan_reports()
+#time.sleep(120)
 export_scan_reports()

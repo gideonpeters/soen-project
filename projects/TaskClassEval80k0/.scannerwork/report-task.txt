@@ -1,0 +1,6 @@
+projectKey=TaskClassEval80k0
+serverUrl=http://127.0.0.1:9000
+serverVersion=10.4.1.88267
+dashboardUrl=http://127.0.0.1:9000/dashboard?id=TaskClassEval80k0
+ceTaskId=f0bd6e0d-ad1a-46e6-949c-69def1506ae9
+ceTaskUrl=http://127.0.0.1:9000/api/ce/task?id=f0bd6e0d-ad1a-46e6-949c-69def1506ae9
