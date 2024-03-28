@@ -63,7 +63,7 @@ def process_issues(issues):
         "severity": give_direct_value(i, "severity") ,"line": give_direct_value(i, "line"), "effort": give_direct_value(i, "effort"),
         "debt": give_direct_value(i, "debt"), "tags": "".join(give_direct_value(i, "tags")),
         "type": give_direct_value(i, "type"), "scope": give_direct_value(i, "scope"),
-        "cleanCodeAttribute": give_direct_value(i, "cleanCodeAttribute"),
+        "cleanCodeAttribute": give_direct_value(i, "cleanCodeAttribute"), "quickFixAvailable": give_direct_value(i, "quickFixAvailable"),
         "cleanCodeAttributeCategory": give_direct_value(i, "cleanCodeAttributeCategory"),
         "Software_Quality_Impact": give_embedded_value(i, "impacts", 0, "softwareQuality"),
         "Impact_Severity": give_embedded_value(i, "impacts", 0, "severity"), "message": give_direct_value(i, "message")}
@@ -85,6 +85,6 @@ def export_scan_reports():
         if os.path.isdir(os.path.join(directory_path, folder_name)):
             export_scan_report(folder_name, sonarqube_url, sonarqube_token)
 
-#generate_scan_reports()
-#time.sleep(120)
+generate_scan_reports()
+time.sleep(120)
 export_scan_reports()
