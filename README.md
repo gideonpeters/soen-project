@@ -30,7 +30,7 @@ Now, in the ```sonar_scanner_command``` variables, make sure to replace the sona
 
 ### File structure
 
-Once obtained, LLM-generated (and human written) code snippets should be placed in the folder suffixed with ```-projects```, where the canonical solutions are placed in the projects folder prefixed with ```canonical```, the initial LLM solutions are placed in the projects folder prefixed with ```llm```, the LLM-enhanced solutions are placed in the projects folder prefixed with ```llm-enhanced```. Make sure to have an empty folder suffixed with ```-solutions``` and prefixed with the same convention for ```-projects```.
+Once obtained, LLM-generated (and human written) code snippets should be placed in the folder suffixed with ```-solutions```, where the canonical solutions are placed in the projects folder prefixed with ```canonical```, the initial LLM solutions are placed in the projects folder prefixed with ```llm```, the LLM-enhanced solutions are placed in the projects folder prefixed with ```llm-enhanced```. Make sure to have an empty folder suffixed with ```-projects``` and prefixed with the same convention for ```-solutions```.
 
 ### Running the scanning and exporting
  Run the following command :
