@@ -5,11 +5,11 @@ class FitnessTracker:
         self.age = age
         self.gender = gender
 
-    def get_bmi(self):
-        return round(self.weight / (self.height ** 2), 15)
+    def get_BMI(self):
+        return round(self.weight / (self.height ** 2), 2)
 
     def condition_judge(self):
-        bmi = self.get_bmi()
+        bmi = self.get_BMI()
         if self.gender == "male":
             if bmi < 18.5:
                 return -1
@@ -31,4 +31,4 @@ class FitnessTracker:
         else:
             bmr = 447.593 + (9.247 * self.weight) + (3.098 * self.height * 100) - (4.330 * self.age)
         
-        return round(bmr * 1.2, 14)
+        return round(bmr * 1.2, 2)

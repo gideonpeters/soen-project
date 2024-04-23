@@ -2,8 +2,6 @@ import xml.etree.ElementTree as ET
 import os
 
 class XMLProcessor:
-    FILE_NAME = 'test.xml'
-
     def __init__(self, file_name):
         self.file_name = file_name
         self.root = None
@@ -38,9 +36,9 @@ import unittest
 
 class XMLProcessorTest(unittest.TestCase):
     def test_XMLProcessor(self):
-        with open(XMLProcessor.FILE_NAME, 'w') as f:
+        with open('test.xml', 'w') as f:
             f.write('<root>\n    <item>apple</item>\n    <item>banana</item>\n    <item>orange</item>\n</root>')
-        self.xml_file = XMLProcessor.FILE_NAME
+        self.xml_file = 'test.xml'
         self.processor = XMLProcessor(self.xml_file)
         tree = ET.parse(self.processor.file_name)
         self.processor.root = tree.getroot()
@@ -92,4 +90,4 @@ class XMLProcessorTest(unittest.TestCase):
         self.assertEqual(elements[1].text, 'banana')
         self.assertEqual(elements[2].text, 'orange')
 
-        os.remove(XMLProcessor.FILE_NAME)
+        os.remove('test.xml')

@@ -3,6 +3,10 @@ import re
 class HtmlUtil:
     CODE_MARK = '-CODE-'
 
+    @staticmethod
+    def format_line_feed(text):
+        return re.sub(r'\n{2,}', '\n', text)
+
     def format_line_html_text(self, html_text):
         title = re.search(r'<h1>(.*?)</h1>', html_text, re.DOTALL)
         paragraphs = re.findall(r'<p>(.*?)</p>', html_text, re.DOTALL)
@@ -23,4 +27,5 @@ class HtmlUtil:
         return codes if codes else []
 
 if __name__ == '__main__':
+    import unittest
     unittest.main()

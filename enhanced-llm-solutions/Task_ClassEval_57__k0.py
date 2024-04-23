@@ -21,7 +21,16 @@ class MetricsCalculator2:
             if k <= 0:
                 raise ValueError("Second element of tuple must be a positive integer")
             
-            mrr_score += calculate_mrr(relevance_list)
+            found_relevant = False
+            for i, rel in enumerate(relevance_list):
+                if rel == 1:
+                    mrr_score += 1 / (i + 1)
+                    found_relevant = True
+                    break
+            
+            if not found_relevant:
+                mrr_score += 0
+            
             mrr_list.append(mrr_score)
         
         mrr_score /= len(data)
@@ -50,29 +59,18 @@ class MetricsCalculator2:
             if k <= 0:
                 raise ValueError("Second element of tuple must be a positive integer")
             
-            map_score += calculate_map(relevance_list)
+            precision_sum = 0.0
+            relevant_count = 0
+            
+            for i, rel in enumerate(relevance_list):
+                if rel == 1:
+                    relevant_count += 1
+                    precision_sum += relevant_count / (i + 1)
+            
+            if relevant_count > 0:
+                map_score += precision_sum / relevant_count
             map_list.append(map_score)
         
         map_score /= len(data)
         
         return map_score, map_list
-
-def calculate_mrr(relevance_list):
-    mrr_score = 0.0
-    for i, rel in enumerate(relevance_list):
-        if rel == 1:
-            mrr_score += 1 / (i + 1)
-            break
-    return mrr_score
-
-def calculate_map(relevance_list):
-    precision_sum = 0.0
-    relevant_count = 0
-    for i, rel in enumerate(relevance_list):
-        if rel == 1:
-            relevant_count += 1
-            precision_sum += relevant_count / (i + 1)
-    if relevant_count > 0:
-        return precision_sum / relevant_count
-    else:
-        return 0.0

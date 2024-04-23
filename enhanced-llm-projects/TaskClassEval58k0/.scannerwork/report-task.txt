@@ -1,6 +1,0 @@
-projectKey=TaskClassEval58k0enhanced-llm
-serverUrl=http://127.0.0.1:9000
-serverVersion=10.4.1.88267
-dashboardUrl=http://127.0.0.1:9000/dashboard?id=TaskClassEval58k0enhanced-llm
-ceTaskId=1f30942a-5ad3-4162-8ad9-a8eb3846d54f
-ceTaskUrl=http://127.0.0.1:9000/api/ce/task?id=1f30942a-5ad3-4162-8ad9-a8eb3846d54f

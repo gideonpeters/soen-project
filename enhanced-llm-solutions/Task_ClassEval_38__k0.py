@@ -24,14 +24,17 @@ class ExcelProcessor:
         workbook.close()
         return 1
 
-    def process_excel_data(self, n, file_name):
+    def process_excel_data(self, N, file_name):
         if not file_name:
             return 0
         workbook = openpyxl.load_workbook(file_name)
         sheet = workbook.active
         processed_data = []
         for i, row in enumerate(sheet.iter_rows(values_only=True)):
-            row += (row[n],)
+            if i == 0:
+                row += (row[N],)
+            else:
+                row += (row[N],)
             processed_data.append(row)
         output_file = 'processed_' + file_name
         workbook.save(output_file)

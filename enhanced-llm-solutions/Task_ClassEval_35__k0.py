@@ -2,16 +2,16 @@ class EightPuzzle:
     def __init__(self, state):
         self.state = state
 
-    def find_blank(self, state):
+    def find_blank(self):
         for i in range(3):
             for j in range(3):
-                if state[i][j] == 0:
+                if self.state[i][j] == 0:
                     return (i, j)
         return None
 
-    def move(self, state, direction):
-        blank_row, blank_col = self.find_blank(state)
-        new_state = [row[:] for row in state]
+    def move(self, direction):
+        blank_row, blank_col = self.find_blank()
+        new_state = [row[:] for row in self.state]
         if direction == 'up' and blank_row > 0:
             new_state[blank_row][blank_col], new_state[blank_row - 1][blank_col] = new_state[blank_row - 1][blank_col], new_state[blank_row][blank_col]
         elif direction == 'down' and blank_row < 2:
@@ -22,9 +22,10 @@ class EightPuzzle:
             new_state[blank_row][blank_col], new_state[blank_row][blank_col + 1] = new_state[blank_row][blank_col + 1], new_state[blank_row][blank_col]
         return new_state
 
-    def get_possible_moves(self, state):
+    def get_possible_moves(self):
         possible_moves = []
-        blank_row, blank_col = self.find_blank(state)
+        directions = ['up', 'down', 'left', 'right']
+        blank_row, blank_col = self.find_blank()
         if blank_row > 0:
             possible_moves.append('up')
         if blank_row < 2:

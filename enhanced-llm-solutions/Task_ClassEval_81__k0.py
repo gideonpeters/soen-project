@@ -1,19 +1,16 @@
 class Statistics3:
     def median(self, nums):
-        nums.sort()
-        n = len(nums)
+        sorted_nums = sorted(nums)
+        n = len(sorted_nums)
         if n % 2 == 0:
-            return (nums[n//2 - 1] + nums[n//2]) / 2
+            return (sorted_nums[n//2 - 1] + sorted_nums[n//2]) / 2
         else:
-            return nums[n//2]
+            return sorted_nums[n//2]
 
     def mode(self, nums):
         num_count = {}
         for num in nums:
-            if num in num_count:
-                num_count[num] += 1
-            else:
-                num_count[num] = 1
+            num_count[num] = num_count.get(num, 0) + 1
         max_count = max(num_count.values())
         modes = [num for num, count in num_count.items() if count == max_count]
         return modes
@@ -42,6 +39,7 @@ class Statistics3:
         n = len(matrix)
         if n == 0:
             return [[None] * n for _ in range(n)]
+        means = [self.mean(col) for col in zip(*matrix)]
         std_devs = [self.standard_deviation(col) for col in zip(*matrix)]
         correlation_matrix = [[0.0] * n for _ in range(n)]
         for i in range(n):

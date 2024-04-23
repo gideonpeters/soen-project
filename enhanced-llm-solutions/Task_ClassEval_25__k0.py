@@ -17,13 +17,13 @@ class CookiesUtil:
             self.cookies = {}
         return self.cookies
 
-    def _save_cookies(self):
+    def save_cookies(self):
         try:
             with open(self.file_path, 'w') as file:
                 json.dump(self.cookies, file)
             return True
         except Exception as e:
-            print(f"An error occurred: {e}")
+            print(f"Error saving cookies: {e}")
             return False
 
     def set_cookies(self, request):

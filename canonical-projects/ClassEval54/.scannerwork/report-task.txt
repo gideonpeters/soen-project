@@ -1,6 +1,0 @@
-projectKey=ClassEval54canonical
-serverUrl=http://127.0.0.1:9000
-serverVersion=10.4.1.88267
-dashboardUrl=http://127.0.0.1:9000/dashboard?id=ClassEval54canonical
-ceTaskId=58f3985d-5f86-44d6-b4a7-346f19d936d2
-ceTaskUrl=http://127.0.0.1:9000/api/ce/task?id=58f3985d-5f86-44d6-b4a7-346f19d936d2

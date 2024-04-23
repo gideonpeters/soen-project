@@ -1,6 +1,4 @@
 class Manacher:
-    PALINDROMIC_PATTERN = 'a|b|a|b|a'
-
     def __init__(self, s):
         self.s = s
         self.p = [0] * (2 * len(s) + 1)
@@ -8,9 +6,9 @@ class Manacher:
         for i in range(len(s)):
             self.s_new[2 * i + 1] = s[i]
         self.s_new = ''.join(self.s_new)
-        self.palindromic_length(2, 1)
+        self.palindromic_length(2, 1, 'a|b|a|b|a')
 
-    def palindromic_length(self, center, radius):
+    def palindromic_length(self, center, radius, s):
         while self.s_new[center - radius] == self.s_new[center + radius]:
             radius += 1
         return radius - 1
@@ -30,23 +28,23 @@ if __name__ == '__main__':
     class ManacherTestPalindromicLength(unittest.TestCase):
         def test_palindromic_length(self):
             manacher = Manacher('ababa')
-            self.assertEqual(manacher.palindromic_length(2, 1), 2)
+            self.assertEqual(manacher.palindromic_length(2, 1, 'a|b|a|b|a'), 2)
 
         def test_palindromic_length_2(self):
             manacher = Manacher('ababaxse')
-            self.assertEqual(manacher.palindromic_length(2, 1), 2)
+            self.assertEqual(manacher.palindromic_length(2, 1, 'a|b|a|b|a|x|s|e'), 2)
 
         def test_palindromic_length_3(self):
             manacher = Manacher('ababax')
-            self.assertEqual(manacher.palindromic_length(2, 3), 0)
+            self.assertEqual(manacher.palindromic_length(2, 3, 'a|b|a|b|a|x'), 0)
 
         def test_palindromic_length_4(self):
             manacher = Manacher('ababax')
-            self.assertEqual(manacher.palindromic_length(9, 2), 0)
+            self.assertEqual(manacher.palindromic_length(9, 2, 'a|b|a|b|a|x'), 0)
 
         def test_palindromic_length_5(self):
             manacher = Manacher('ababax')
-            self.assertEqual(manacher.palindromic_length(4, 1), 4)
+            self.assertEqual(manacher.palindromic_length(4, 1, 'a|b|a|b|a|x'), 4)
 
     class ManacherTestPalindromicString(unittest.TestCase):
         def test_palindromic_string(self):
@@ -72,7 +70,7 @@ if __name__ == '__main__':
     class ManacherTestMain(unittest.TestCase):
         def test_main(self):
             manacher = Manacher('ababa')
-            self.assertEqual(manacher.palindromic_length(2, 1), 2)
+            self.assertEqual(manacher.palindromic_length(2, 1, 'a|b|a|b|a'), 2)
             self.assertEqual(manacher.palindromic_string(), 'ababa')
 
     unittest.main()

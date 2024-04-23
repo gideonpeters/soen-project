@@ -1,6 +1,4 @@
 class UrlPath:
-    PATH_PREFIX = '/foo/bar/'
-
     def __init__(self):
         self.segments = []
         self.with_end_tag = False
@@ -8,7 +6,7 @@ class UrlPath:
     def add(self, segment):
         self.segments.append(segment)
 
-    def parse(self, path):
+    def parse(self, path, encoding):
         path = path.strip('/')
         self.segments = path.split('/')
         self.with_end_tag = path.endswith('/')
@@ -51,50 +49,50 @@ class UrlPathTestAdd(unittest.TestCase):
 class UrlPathTestParse(unittest.TestCase):
     def test_parse_1(self):
         url_path = UrlPath()
-        url_path.parse(UrlPath.PATH_PREFIX)
+        url_path.parse('/foo/bar/', 'utf-8')
         self.assertEqual(url_path.segments, ['foo', 'bar'])
-        self.assertTrue(url_path.with_end_tag)
+        self.assertEqual(url_path.with_end_tag, True)
 
     def test_parse_2(self):
         url_path = UrlPath()
-        url_path.parse('aaa/bbb')
+        url_path.parse('aaa/bbb', 'utf-8')
         self.assertEqual(url_path.segments, ['aaa', 'bbb'])
-        self.assertFalse(url_path.with_end_tag)
+        self.assertEqual(url_path.with_end_tag, False)
 
     def test_parse_3(self):
         url_path = UrlPath()
-        url_path.parse('/123/456/')
+        url_path.parse('/123/456/', 'utf-8')
         self.assertEqual(url_path.segments, ['123', '456'])
-        self.assertTrue(url_path.with_end_tag)
+        self.assertEqual(url_path.with_end_tag, True)
 
     def test_parse_4(self):
         url_path = UrlPath()
-        url_path.parse('/123/456/789')
+        url_path.parse('/123/456/789', 'utf-8')
         self.assertEqual(url_path.segments, ['123', '456', '789'])
-        self.assertFalse(url_path.with_end_tag)
+        self.assertEqual(url_path.with_end_tag, False)
 
     def test_parse_5(self):
         url_path = UrlPath()
-        url_path.parse('/foo/bar')
+        url_path.parse('/foo/bar', 'utf-8')
         self.assertEqual(url_path.segments, ['foo', 'bar'])
-        self.assertFalse(url_path.with_end_tag)
+        self.assertEqual(url_path.with_end_tag, False)
 
     def test_parse_6(self):
         url_path = UrlPath()
-        url_path.parse('')
+        url_path.parse('', 'utf-8')
         self.assertEqual(url_path.segments, [])
-        self.assertFalse(url_path.with_end_tag)
+        self.assertEqual(url_path.with_end_tag, False)
 
     def test_parse_7(self):
         url_path = UrlPath()
-        url_path.parse('//')
+        url_path.parse('//', 'utf-8')
         self.assertEqual(url_path.segments, [])
-        self.assertTrue(url_path.with_end_tag)
+        self.assertEqual(url_path.with_end_tag, True)
 
 
 class UrlPathTestFixPath(unittest.TestCase):
     def test_fix_path_1(self):
-        fixed_path = UrlPath.fix_path(UrlPath.PATH_PREFIX)
+        fixed_path = UrlPath.fix_path('/foo/bar/')
         self.assertEqual(fixed_path, 'foo/bar')
 
     def test_fix_path_2(self):
@@ -126,9 +124,9 @@ class UrlPathTest(unittest.TestCase):
         self.assertEqual(url_path.segments, ['foo', 'bar'])
 
         url_path = UrlPath()
-        url_path.parse(UrlPath.PATH_PREFIX)
+        url_path.parse('/foo/bar/', 'utf-8')
         self.assertEqual(url_path.segments, ['foo', 'bar'])
-        self.assertTrue(url_path.with_end_tag)
+        self.assertEqual(url_path.with_end_tag, True)
 
-        fixed_path = UrlPath.fix_path(UrlPath.PATH_PREFIX)
+        fixed_path = UrlPath.fix_path('/foo/bar/')
         self.assertEqual(fixed_path, 'foo/bar')

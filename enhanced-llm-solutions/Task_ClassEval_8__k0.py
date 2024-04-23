@@ -1,18 +1,18 @@
 class BankAccount:
-    INVALID_AMOUNT_ERROR = "Invalid amount"
-
     def __init__(self):
         self.balance = 0
 
-    def deposit(self, amount):
+    def _validate_amount(self, amount):
         if amount < 0:
-            raise ValueError(self.INVALID_AMOUNT_ERROR)
+            raise ValueError("Invalid amount")
+
+    def deposit(self, amount):
+        self._validate_amount(amount)
         self.balance += amount
         return self.balance
 
     def withdraw(self, amount):
-        if amount < 0:
-            raise ValueError(self.INVALID_AMOUNT_ERROR)
+        self._validate_amount(amount)
         if amount > self.balance:
             raise ValueError("Insufficient balance.")
         self.balance -= amount
@@ -22,8 +22,7 @@ class BankAccount:
         return self.balance
 
     def transfer(self, recipient, amount):
-        if amount < 0:
-            raise ValueError(self.INVALID_AMOUNT_ERROR)
+        self._validate_amount(amount)
         if amount > self.balance:
             raise ValueError("Insufficient balance.")
         self.balance -= amount
