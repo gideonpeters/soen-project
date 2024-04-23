@@ -8,7 +8,7 @@ import pandas as pd
 import time
 
 sonarqube_url = "http://127.0.0.1:9000"
-sonarqube_token = "squ_9933d4a5ee7a9e77b3050723952e31cdf87c9fcd"
+sonarqube_token = "<insert-token-here>"
 sonar = SonarQubeClient(sonarqube_url=sonarqube_url, token=sonarqube_token)
 
 df = pd.DataFrame()
@@ -19,7 +19,7 @@ def scan_project(option, foldername, sonarqube_url, sonarqube_token):
     # scan the project
     folder_path = option + "-projects/" + foldername
     sonar_scanner_command = [
-        r"C:\Users\bilel\Downloads\sonar-scanner-cli-5.0.1.3006-windows\sonar-scanner-5.0.1.3006-windows\bin\sonar-scanner.bat",
+        r"<sonar-scanner-link>",
         f"-Dsonar.projectKey={foldername + option}",
         f"-Dsonar.host.url={sonarqube_url}",
         f"-Dsonar.login={sonarqube_token}",
@@ -71,7 +71,6 @@ def process_issues(issues):
         df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
 
 def export_scan_report(option, foldername):
-    #r = requests.get(sonarqube_url + '/api/projects/search', headers={'Authorization': f'Bearer {sonarqube_token}', 'Content-Type': 'application/json'}, data={"project": foldername})
     issues = sonar.issues.search_issues(componentKeys=foldername + option)["issues"]
     print(issues)
     if (len(issues) > 0):
@@ -85,13 +84,11 @@ def export_scan_reports(option):
         if os.path.isdir(os.path.join(directory_path, folder_name)):
             export_scan_report(option, folder_name)
 
-#generate_scan_reports("data", "projects", "")
-#export_scan_reports("projects", "")
-#time.sleep(120)
-generate_scan_reports("enhanced-llm-2")
+
+generate_scan_reports("llm")
+generate_scan_reports("canonical")
+generate_scan_reports("enhanced-llm")
 time.sleep(120)
-export_scan_reports("enhanced-llm-2")
-
-
-#https://python-sonarqube-api.readthedocs.io/en/latest/sonarqube.rest.html#sonarqube.rest.issues.SonarQubeIssues.search_issues
-#https://python-sonarqube-api.readthedocs.io/en/latest/examples/issues.html
+export_scan_reports("llm")
+export_scan_reports("canonical")
+export_scan_reports("enhanced-llm")
